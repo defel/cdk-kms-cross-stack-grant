@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 import cdk = require('@aws-cdk/core');
-import { CdkStackKmsGrantStack } from '../lib/cdk-stack-kms-grant-stack';
+import { KmsStack } from '../lib/kms-stack';
+import {LambdaStack} from "../lib/lambda-stack";
 
 const app = new cdk.App();
-new CdkStackKmsGrantStack(app, 'CdkStackKmsGrantStack');
+const kmsStack = new KmsStack(app, 'Kms');
+new LambdaStack(app, 'Lambda', {
+    key: kmsStack.key
+});
